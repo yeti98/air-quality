@@ -22,7 +22,6 @@ public class AirQuality {
     private Double correctedPPM;
     private Double temperature;
     private Double humidity;
-    private LocalDateTime timeStamp;
     private LocalDate date;
     private LocalTime time;
     @OneToOne
