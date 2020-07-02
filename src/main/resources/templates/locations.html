@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html
+    lang="en"
+    layout:decorate="~{layouts/pagelayout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý máy đo</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/crud_table.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+<!--    <p th:text="${locations}"></p>-->
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Quản lý máy đo</h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="btn btn-success" data-toggle="modal" href="#addLocationModal"><i
+                                class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+<!--                        <a class="btn btn-danger" data-toggle="modal" href="#removeLocationModal"><i-->
+<!--                                class="material-icons">&#xE15C;</i> <span>Xóa</span></a>-->
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>
+           <span class="custom-checkbox">
+            <input id="selectAll" type="checkbox">
+            <label for="selectAll"></label>
+           </span>
+                    </th>
+                    <th>Tên</th>
+                    <th>Vĩ độ (lat)</th>
+                    <th>Kinh độ (long)</th>
+                    <th>Mô tả</th>
+                    <th>Cập nhật</th>
+                </tr>
+                </thead>
+                <tbody id="location-table-body" th:fragment="locations-table">
+                <th:block th:each="location: ${locations}">
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                            <input id="checkbox1" name="options[]" type="checkbox" value="1">
+                            <label for="checkbox1"></label>
+                            </span>
+                        </td>
+                        <td>
+                            <p th:text="${location.name}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${location.locationLat}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${location.locationLong}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${location.description}"></p>
+                        </td>
+                        <td>
+                            <div id="editALocation"
+                                 th:attr="data-location-name=${location.name}, data-location-desc=${location.description},
+                            data-location-lat=${location.locationLat}, data-location-long=${location.locationLong}">
+                                <a class="edit" data-toggle="modal" href="#editLocationModal">
+                                    <i class="material-icons"
+                                       data-toggle="tooltip"
+                                       title="Chỉnh sửa">&#xE254;
+                                    </i>
+                                </a>
+                            </div>
+                            <div id="removeALocation" th:attr="data-content=${location.name}, data-location-id=${location.id}">
+                                <a class="delete" data-toggle="modal" href="#removeLocationModal">
+                                    <i class="material-icons"
+                                       data-toggle="tooltip"
+                                       title="Xóa">&#xE872;
+                                    </i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addLocationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formAddLocationModal">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm máy đo</h4>
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="addName">Tên</label>
+                            <input class="form-control" id="addName" required type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="addLat">Vĩ độ (lat)</label>
+                            <input class="form-control" id="addLat" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="addLong">Kinh độ (long)</label>
+                            <input class="form-control" id="addLong" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="addDescription">Mô tả</label>
+                            <input class="form-control" id="addDescription">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Hủy">
+                        <input class="btn btn-success" type="submit" value="Lưu">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editLocationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formEditLocationModal">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sửa thông tin</h4>
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="editName">Tên máy</label>
+                            <input class="form-control" id="editName" required type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLat">Vĩ độ (lat)</label>
+                            <input class="form-control" id="editLat" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLong">Kinh độ (long)</label>
+                            <input class="form-control" id="editLong" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDesc">Mô tả</label>
+                            <input class="form-control" id="editDesc">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Hủy">
+                        <input id="btnUserUpdate" class="btn btn-info" type="submit" value="Lưu">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="removeLocationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formRemoveLocationModal">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Xóa bản ghi</h4>
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có muốn xóa bản ghi không?</p>
+                        <p id="mainContent" style="height: fit-content"></p>
+                        <p id="location-id" style="display: none"></p>
+                        <p class="text-warning"><small>Hành động này không thể khôi phục</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="scriptFragment">
+    <script th:src="@{/js/locations.js}"></script>
+</th:block>
+</body>
+</html>
