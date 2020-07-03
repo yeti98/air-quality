@@ -1,78 +1,78 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html
-    lang="en"
-    layout:decorate="~{layouts/pagelayout}"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:th="http://www.thymeleaf.org">
-<head>
+  lang="en"
+  layout:decorate="~{layouts/pagelayout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
     <title>Quản lý chất lượng không khí</title>
-    <link rel="stylesheet" th:src="@{/css/cards.css}"/>
+    <link rel="stylesheet" th:src="@{/css/cards.css}" />
     <script src="//d3js.org/d3.v3.min.js"></script>
-    <base href="/"/>
-</head>
-<body>
-<div layout:fragment="content" style="padding-top: 2%">
-    <div class="container-fluid">
+    <base href="/" />
+  </head>
+  <body>
+    <div layout:fragment="content" style="padding-top: 2%;">
+      <div class="container-fluid">
         <div class="row card">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <h5 class="card-header">
-                                Tên máy
-                            </h5>
-                            <div class="card-body">
-                                <ol>
-                                    <li class="list-item">
-                                        Nhiệt độ:
-                                    </li>
-                                    <li class="list-item">
-                                        Độ ẩm:
-                                    </li>
-                                    <li class="list-item">
-                                        PPM:
-                                    </li>
-                                </ol>
-                            </div>
-                            <div class="card-footer">
-                                Cập nhật lần cuối:
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div id="my_dataviz"></div>
-                    </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <ol>
+                      <li
+                        class="list-item"
+                        th:text="${'Nhiệt độ: '+ts.temperature}"
+                      ></li>
+                      <li
+                        class="list-item"
+                        th:text="${'Độ ẩm: '+ts.humidity}"
+                      ></li>
+                      <li class="list-item" th:text="${'PPM: '+ts.ppm}"></li>
+                    </ol>
+                  </div>
+                  <div
+                    class="card-footer"
+                    th:text="${'Cập nhật lần cuối: '+ ts.time.toString()}"
+                  ></div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="btn-group" role="group">
-
-                            <button class="btn btn-secondary" type="button">
-                                Left
-                            </button>
-                            <button class="btn btn-secondary" type="button">
-                                Center
-                            </button>
-                            <button class="btn btn-secondary" type="button">
-                                Right
-                            </button>
-                            <button class="btn btn-secondary" type="button">
-                                Justify
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                </div>
+              </div>
+              <div class="col-md-9">
+                <div id="my_dataviz"></div>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-secondary" type="button">
+                    Left
+                  </button>
+                  <button class="btn btn-secondary" type="button">
+                    Center
+                  </button>
+                  <button class="btn btn-secondary" type="button">
+                    Right
+                  </button>
+                  <button class="btn btn-secondary" type="button">
+                    Justify
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<th:block layout:fragment="scriptFragment">
-    <script th:src="@{/js/locations.js}"></script>
-    <script type="text/javascript" th:src="@{/js/d3visual.js}"></script>
-</th:block>
-</body>
+    <th:block layout:fragment="scriptFragment">
+      <script th:src="@{/js/locations.js}"></script>
+      <script th:inline="javascript">
+        var Data =[[${data}]];
+        Data = JSON.parse(Data);
+      </script>
+      <script type="text/javascript" th:src="@{/js/d3visual.js}"></script>
+    </th:block>
+  </body>
 </html>
