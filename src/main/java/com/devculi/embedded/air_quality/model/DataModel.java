@@ -30,7 +30,7 @@ public class DataModel {
         date = airQuality.getTime().toString();
         categories = new ArrayList<>();
         categories.add(new Category("Độ ẩm", airQuality.getHumidity()));
-        categories.add(new Category("PPM", airQuality.getPpm()));
+        categories.add(new Category("PPM", airQuality.getCorrectedPPM()/10.0));
 
         lineCategory = new ArrayList<>();
         lineCategory.add(new Category("Nhiệt độ", airQuality.getTemperature()));
