@@ -27,6 +27,7 @@ public class AirQuality {
     private Double humidity;
     private LocalDate date;
     private LocalTime time;
+    private String weather;
     @OneToOne
     private Location location;
 }
