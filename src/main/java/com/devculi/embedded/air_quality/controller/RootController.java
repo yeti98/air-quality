@@ -12,6 +12,6 @@ public class RootController {
 
     @GetMapping
     public String sayHello() {
-        return "locations";
+        return "redirect:/air-qualities";
     }
 }
